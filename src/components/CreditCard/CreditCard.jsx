@@ -20,11 +20,14 @@ class CreditCard extends React.Component {
   static propTypes = {
     /** @uxpinignoreprop */
     acceptedCards: PropTypes.array,
-    cvc: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    // expiry: PropTypes.oneOfType([
-    //   PropTypes.string,
-    //   PropTypes.number,
-    // ]),
+    cvc: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    expiry: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     focused: PropTypes.oneOf(['none', 'name', 'number', 'expiry', 'cvc']),
     issuer: PropTypes.oneOf([
       'default',
@@ -45,7 +48,10 @@ class CreditCard extends React.Component {
       valid: PropTypes.string,
     }),
     name: PropTypes.string,
-    number: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    number: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     onInvalid: PropTypes.func,
     onValid: PropTypes.func,
     /** @uxpinignoreprop */
@@ -84,7 +90,10 @@ class CreditCard extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { acceptedCards, number } = this.props;
 
-    const { acceptedCards: nextAcceptedCards, number: nextNumber } = nextProps;
+    const {
+      acceptedCards: nextAcceptedCards,
+      number: nextNumber,
+    } = nextProps;
 
     if (number !== nextNumber) {
       this.updateType(nextNumber);
@@ -107,10 +116,7 @@ class CreditCard extends React.Component {
     const { number, preview } = this.props;
 
     let maxLength = preview ? 19 : type.maxLength;
-    let nextNumber =
-      typeof number === 'number'
-        ? number.toString()
-        : number.replace(/[A-Za-z]| /g, '');
+    let nextNumber = typeof number === 'number' ? number.toString() : number.replace(/[A-Za-z]| /g, '');
 
     // eslint-disable-next-line no-restricted-globals
     if (isNaN(parseInt(nextNumber, 10)) && !preview) {
@@ -132,30 +138,16 @@ class CreditCard extends React.Component {
     if (['amex', 'dinersclub'].includes(this.issuer)) {
       const format = [0, 4, 10];
       const limit = [4, 6, 5];
-      nextNumber = `${nextNumber.substr(
-        format[0],
-        limit[0]
-      )} ${nextNumber.substr(format[1], limit[1])} ${nextNumber.substr(
-        format[2],
-        limit[2]
-      )}`;
+      nextNumber = `${nextNumber.substr(format[0], limit[0])} ${nextNumber.substr(format[1], limit[1])} ${nextNumber.substr(format[2], limit[2])}`;
     } else if (nextNumber.length > 16) {
       const format = [0, 4, 8, 12];
       const limit = [4, 7];
-      nextNumber = `${nextNumber.substr(
-        format[0],
-        limit[0]
-      )} ${nextNumber.substr(format[1], limit[0])} ${nextNumber.substr(
-        format[2],
-        limit[0]
-      )} ${nextNumber.substr(format[3], limit[1])}`;
+      nextNumber = `${nextNumber.substr(format[0], limit[0])} ${nextNumber.substr(format[1], limit[0])} ${nextNumber.substr(format[2], limit[0])} ${nextNumber.substr(format[3], limit[1])}`;
     } else {
       // eslint-disable-next-line no-plusplus
-      for (let i = 1; i < maxLength / 4; i++) {
-        const spaceIndex = i * 4 + (i - 1);
-        nextNumber = `${nextNumber.slice(0, spaceIndex)} ${nextNumber.slice(
-          spaceIndex
-        )}`;
+      for (let i = 1; i < (maxLength / 4); i++) {
+        const spaceIndex = (i * 4) + (i - 1);
+        nextNumber = `${nextNumber.slice(0, spaceIndex)} ${nextNumber.slice(spaceIndex)}`;
       }
     }
 
@@ -195,11 +187,12 @@ class CreditCard extends React.Component {
     let newCardArray = [];
 
     if (acceptedCards.length) {
-      Payment.getCardArray().forEach((d) => {
-        if (acceptedCards.includes(d.type)) {
-          newCardArray.push(d);
-        }
-      });
+      Payment.getCardArray()
+        .forEach((d) => {
+          if (acceptedCards.includes(d.type)) {
+            newCardArray.push(d);
+          }
+        });
     } else {
       newCardArray = newCardArray.concat(Payment.getCardArray());
     }
@@ -239,47 +232,36 @@ class CreditCard extends React.Component {
   }
 
   render() {
-    const { cvc, focused, locale, name, placeholders } = this.props;
+    const {
+      cvc, focused, locale, name, placeholders,
+    } = this.props;
     const { number, expiry } = this;
 
     return (
-      <div key='Cards' className='rccs'>
+      <div key="Cards" className="rccs">
         <div
           className={[
             'rccs__card',
             `rccs__card--${this.issuer}`,
-            focused === 'cvc' && this.issuer !== 'amex'
-              ? 'rccs__card--flipped'
-              : '',
-          ]
-            .join(' ')
-            .trim()}
-        >
-          <div className='rccs__card--front'>
-            <div className='rccs__card__background' />
-            <div className='rccs__issuer' />
+            focused === 'cvc' && this.issuer !== 'amex' ? 'rccs__card--flipped' : '',
+          ].join(' ').trim()}>
+          <div className="rccs__card--front">
+            <div className="rccs__card__background" />
+            <div className="rccs__issuer" />
             <div
               className={[
                 'rccs__cvc__front',
                 focused === 'cvc' ? 'rccs--focused' : '',
-              ]
-                .join(' ')
-                .trim()}
-            >
+              ].join(' ').trim()}>
               {cvc}
             </div>
             <div
               className={[
                 'rccs__number',
-                number.replace(/ /g, '').length > 16
-                  ? 'rccs__number--large'
-                  : '',
+                number.replace(/ /g, '').length > 16 ? 'rccs__number--large' : '',
                 focused === 'number' ? 'rccs--focused' : '',
                 number.substr(0, 1) !== '•' ? 'rccs--filled' : '',
-              ]
-                .join(' ')
-                .trim()}
-            >
+              ].join(' ').trim()}>
               {number}
             </div>
             <div
@@ -287,10 +269,7 @@ class CreditCard extends React.Component {
                 'rccs__name',
                 focused === 'name' ? 'rccs--focused' : '',
                 name ? 'rccs--filled' : '',
-              ]
-                .join(' ')
-                .trim()}
-            >
+              ].join(' ').trim()}>
               {name || placeholders.name}
             </div>
             <div
@@ -298,27 +277,24 @@ class CreditCard extends React.Component {
                 'rccs__expiry',
                 focused === 'expiry' ? 'rccs--focused' : '',
                 expiry.substr(0, 1) !== '•' ? 'rccs--filled' : '',
-              ]
-                .join(' ')
-                .trim()}
-            >
-              <div className='rccs__expiry__valid'>{locale.valid}</div>
-              <div className='rccs__expiry__value'>{expiry}</div>
+              ].join(' ').trim()}>
+              <div className="rccs__expiry__valid">{locale.valid}</div>
+              <div className="rccs__expiry__value">{expiry}</div>
             </div>
-            <div className='rccs__chip' />
+            <div className="rccs__chip" />
           </div>
-          <div className='rccs__card--back'>
-            <div className='rccs__card__background' />
-            <div className='rccs__stripe' />
-            <div className='rccs__signature' />
+          <div className="rccs__card--back">
+            <div className="rccs__card__background" />
+            <div className="rccs__stripe" />
+            <div className="rccs__signature" />
             <div
-              className={['rccs__cvc', focused === 'cvc' ? 'rccs--focused' : '']
-                .join(' ')
-                .trim()}
-            >
+              className={[
+                'rccs__cvc',
+                focused === 'cvc' ? 'rccs--focused' : '',
+              ].join(' ').trim()}>
               {cvc}
             </div>
-            <div className='rccs__issuer' />
+            <div className="rccs__issuer" />
           </div>
         </div>
       </div>
