@@ -31,7 +31,7 @@ Button.propTypes = {
 /* eslint-enable sort-keys */
 
 Button.defaultProps = {
-  disabled: false,
+  // disabled: false,
   iconDirection: 'left',
   mode: 'filled',
   size: 'm',
