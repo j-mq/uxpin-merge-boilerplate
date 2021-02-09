@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Payment from "payment";
-import "./styles.scss";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Payment from 'payment';
+import './styles.scss';
 
 class CreditCard extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class CreditCard extends React.Component {
     this.state = {
       type: {
         maxLength: 16,
-        name: "unknown",
+        name: 'unknown',
       },
     };
 
@@ -25,20 +25,20 @@ class CreditCard extends React.Component {
     //   PropTypes.string,
     //   PropTypes.number,
     // ]),
-    focused: PropTypes.oneOf(["none", "name", "number", "expiry", "cvc"]),
+    focused: PropTypes.oneOf(['none', 'name', 'number', 'expiry', 'cvc']),
     issuer: PropTypes.oneOf([
-      "default",
-      "visa",
-      "mastercard",
-      "discover",
-      "amex",
-      "jcb",
-      "dinersclub",
-      "maestro",
-      "laser",
-      "unionpay",
-      "elo",
-      "hipercard",
+      'default',
+      'visa',
+      'mastercard',
+      'discover',
+      'amex',
+      'jcb',
+      'dinersclub',
+      'maestro',
+      'laser',
+      'unionpay',
+      'elo',
+      'hipercard',
     ]),
     /** @uxpinignoreprop */
     locale: PropTypes.shape({
@@ -57,20 +57,20 @@ class CreditCard extends React.Component {
 
   static defaultProps = {
     acceptedCards: [],
-    cvc: "",
-    expiry: "",
+    cvc: '',
+    expiry: '',
 
-    focused: "",
-    issuer: "",
+    focused: '',
+    issuer: '',
     locale: {
-      valid: "valid thru",
+      valid: 'valid thru',
     },
-    name: "",
-    number: "",
+    name: '',
+    number: '',
     onInvalid: () => {},
     onValid: () => {},
     placeholders: {
-      name: "YOUR NAME HERE",
+      name: 'YOUR NAME HERE',
     },
     preview: false,
   };
@@ -108,13 +108,13 @@ class CreditCard extends React.Component {
 
     let maxLength = preview ? 19 : type.maxLength;
     let nextNumber =
-      typeof number === "number"
+      typeof number === 'number'
         ? number.toString()
-        : number.replace(/[A-Za-z]| /g, "");
+        : number.replace(/[A-Za-z]| /g, '');
 
     // eslint-disable-next-line no-restricted-globals
     if (isNaN(parseInt(nextNumber, 10)) && !preview) {
-      nextNumber = "";
+      nextNumber = '';
     }
 
     if (maxLength > 16) {
@@ -126,10 +126,10 @@ class CreditCard extends React.Component {
     }
 
     while (nextNumber.length < maxLength) {
-      nextNumber += "•";
+      nextNumber += '•';
     }
 
-    if (["amex", "dinersclub"].includes(this.issuer)) {
+    if (['amex', 'dinersclub'].includes(this.issuer)) {
       const format = [0, 4, 10];
       const limit = [4, 6, 5];
       nextNumber = `${nextNumber.substr(
@@ -163,20 +163,20 @@ class CreditCard extends React.Component {
   }
 
   get expiry() {
-    const { expiry = "" } = this.props;
-    const date = typeof expiry === "number" ? expiry.toString() : expiry;
-    let month = "";
-    let year = "";
+    const { expiry = '' } = this.props;
+    const date = typeof expiry === 'number' ? expiry.toString() : expiry;
+    let month = '';
+    let year = '';
 
-    if (date.includes("/")) {
-      [month, year] = date.split("/");
+    if (date.includes('/')) {
+      [month, year] = date.split('/');
     } else if (date.length) {
       month = date.substr(0, 2);
       year = date.substr(2, 6);
     }
 
     while (month.length < 2) {
-      month += "•";
+      month += '•';
     }
 
     if (year.length > 2) {
@@ -184,7 +184,7 @@ class CreditCard extends React.Component {
     }
 
     while (year.length < 2) {
-      year += "•";
+      year += '•';
     }
 
     return `${month}/${year}`;
@@ -209,15 +209,15 @@ class CreditCard extends React.Component {
 
   updateType(number) {
     const { onInvalid, onValid } = this.props;
-    const type = Payment.fns.cardType(number) || "unknown";
+    const type = Payment.fns.cardType(number) || 'unknown';
 
     let maxLength = 16;
 
-    if (type === "amex") {
+    if (type === 'amex') {
       maxLength = 15;
-    } else if (type === "dinersclub") {
+    } else if (type === 'dinersclub') {
       maxLength = 14;
-    } else if (["hipercard", "mastercard", "visa"].includes(type)) {
+    } else if (['hipercard', 'mastercard', 'visa'].includes(type)) {
       maxLength = 19;
     }
 
@@ -243,82 +243,82 @@ class CreditCard extends React.Component {
     const { number, expiry } = this;
 
     return (
-      <div key="Cards" className="rccs">
+      <div key='Cards' className='rccs'>
         <div
           className={[
-            "rccs__card",
+            'rccs__card',
             `rccs__card--${this.issuer}`,
-            focused === "cvc" && this.issuer !== "amex"
-              ? "rccs__card--flipped"
-              : "",
+            focused === 'cvc' && this.issuer !== 'amex'
+              ? 'rccs__card--flipped'
+              : '',
           ]
-            .join(" ")
+            .join(' ')
             .trim()}
         >
-          <div className="rccs__card--front">
-            <div className="rccs__card__background" />
-            <div className="rccs__issuer" />
+          <div className='rccs__card--front'>
+            <div className='rccs__card__background' />
+            <div className='rccs__issuer' />
             <div
               className={[
-                "rccs__cvc__front",
-                focused === "cvc" ? "rccs--focused" : "",
+                'rccs__cvc__front',
+                focused === 'cvc' ? 'rccs--focused' : '',
               ]
-                .join(" ")
+                .join(' ')
                 .trim()}
             >
               {cvc}
             </div>
             <div
               className={[
-                "rccs__number",
-                number.replace(/ /g, "").length > 16
-                  ? "rccs__number--large"
-                  : "",
-                focused === "number" ? "rccs--focused" : "",
-                number.substr(0, 1) !== "•" ? "rccs--filled" : "",
+                'rccs__number',
+                number.replace(/ /g, '').length > 16
+                  ? 'rccs__number--large'
+                  : '',
+                focused === 'number' ? 'rccs--focused' : '',
+                number.substr(0, 1) !== '•' ? 'rccs--filled' : '',
               ]
-                .join(" ")
+                .join(' ')
                 .trim()}
             >
               {number}
             </div>
             <div
               className={[
-                "rccs__name",
-                focused === "name" ? "rccs--focused" : "",
-                name ? "rccs--filled" : "",
+                'rccs__name',
+                focused === 'name' ? 'rccs--focused' : '',
+                name ? 'rccs--filled' : '',
               ]
-                .join(" ")
+                .join(' ')
                 .trim()}
             >
               {name || placeholders.name}
             </div>
             <div
               className={[
-                "rccs__expiry",
-                focused === "expiry" ? "rccs--focused" : "",
-                expiry.substr(0, 1) !== "•" ? "rccs--filled" : "",
+                'rccs__expiry',
+                focused === 'expiry' ? 'rccs--focused' : '',
+                expiry.substr(0, 1) !== '•' ? 'rccs--filled' : '',
               ]
-                .join(" ")
+                .join(' ')
                 .trim()}
             >
-              <div className="rccs__expiry__valid">{locale.valid}</div>
-              <div className="rccs__expiry__value">{expiry}</div>
+              <div className='rccs__expiry__valid'>{locale.valid}</div>
+              <div className='rccs__expiry__value'>{expiry}</div>
             </div>
-            <div className="rccs__chip" />
+            <div className='rccs__chip' />
           </div>
-          <div className="rccs__card--back">
-            <div className="rccs__card__background" />
-            <div className="rccs__stripe" />
-            <div className="rccs__signature" />
+          <div className='rccs__card--back'>
+            <div className='rccs__card__background' />
+            <div className='rccs__stripe' />
+            <div className='rccs__signature' />
             <div
-              className={["rccs__cvc", focused === "cvc" ? "rccs--focused" : ""]
-                .join(" ")
+              className={['rccs__cvc', focused === 'cvc' ? 'rccs--focused' : '']
+                .join(' ')
                 .trim()}
             >
               {cvc}
             </div>
-            <div className="rccs__issuer" />
+            <div className='rccs__issuer' />
           </div>
         </div>
       </div>
