@@ -8,9 +8,9 @@ export default (
     mode="filled"
     size="l"
     stretched
-    type="primary"
+    type="error"
     uxpId="button"
   >
-    Let's Merge!
+    Hello Merge
   </Button>
 );
