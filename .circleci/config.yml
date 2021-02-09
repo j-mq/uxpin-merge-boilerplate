@@ -16,12 +16,14 @@ jobs:
       - run:
           name: "Install dependencies"
           command: npm install
-      - run:
-          name: "Check"
-          command: npm run check
-      - run:
-          name: "Test"
-          command: npm run test
+      # Checking with ESLint
+      # - run:
+      #     name: "Check"
+      #     command: npm run check
+      # Testing with Jest
+      # - run:
+      #     name: "Test"
+      #     command: npm run test
       - run:
           name: "Push to UXPin"
           command: npm run push
