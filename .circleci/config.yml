@@ -4,7 +4,7 @@ workflows:
   default:
     jobs:
       - build:
-          context: "Boilerplate library"
+          context: "My Testing Library"
 
 jobs:
   build:
@@ -14,14 +14,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: 'Install dependencies'
+          name: "Install dependencies"
           command: npm install
       - run:
-          name: 'Check'
+          name: "Check"
           command: npm run check
       - run:
-          name: 'Test'
+          name: "Test"
           command: npm run test
       - run:
-          name: 'Push to UXPin'
+          name: "Push to UXPin"
           command: npm run push
