@@ -12,7 +12,7 @@ const Button = (props) => (
 /* eslint-disable sort-keys */
 Button.propTypes = {
   onClick: PropTypes.func,
-  disabled: PropTypes.bool,
+  // disabled: PropTypes.bool,
   type: PropTypes.oneOf(['primary', 'secondary', 'success', 'error', 'warning']),
   mode: PropTypes.oneOf(['filled', 'ghost', 'minimal', 'flat']),
   /** @uxpinignoreprop */
