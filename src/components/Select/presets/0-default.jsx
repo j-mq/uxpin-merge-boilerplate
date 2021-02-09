@@ -1,5 +1,5 @@
-import React from 'react';
-import Select from '../Select';
+import React from "react";
+import Select from "../Select";
 
 export default (
   <Select uxpId="select1">
