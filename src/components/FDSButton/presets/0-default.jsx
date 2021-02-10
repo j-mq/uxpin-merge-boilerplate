@@ -6,7 +6,7 @@ export default (
     uxpId="fds-button"
     type="basic"
     size="medium"
-    disabled="false"
+    disabled={false}
     label="ほげほげ"
   />
 );
