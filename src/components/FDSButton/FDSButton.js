@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./styles.scss";
 
-const FDSButton = ({ type, size, disabled, children }) => {
+const FDSButton = ({ type, size, disabled, label }) => {
   return (
     <button className={`${type} ${size}`} disabled={disabled}>
-      {children}
+      {label}
     </button>
   );
 };
@@ -20,6 +20,7 @@ FDSButton.propTypes = {
   ]),
   size: PropTypes.oneOf(["tiny", "small", "medium", "large", "giant"]),
   disabled: PropTypes.bool,
+  label: PropTypes.string,
 };
 
 export default FDSButton;

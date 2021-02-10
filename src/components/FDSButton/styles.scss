@@ -28,7 +28,7 @@ button {
   }
 }
 .primary {
-  background: #6187db;
+  background: $testBlue;
   color: white;
 
   &:hover {
@@ -44,8 +44,8 @@ button {
 }
 .outline {
   background: white;
-  color: #6187db;
-  border: 1px solid #6187db;
+  color: $testBlue;
+  border: 1px solid $testBlue;
 
   &:hover {
     background: #f5f5f5;
@@ -77,7 +77,7 @@ button {
 }
 .text-button {
   background: none;
-  color: #6187db;
+  color: $testBlue;
   box-shadow: none;
 
   &:hover {
