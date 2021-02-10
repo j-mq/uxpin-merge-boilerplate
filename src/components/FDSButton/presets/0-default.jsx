@@ -1,8 +1,8 @@
-import * as React from "react";
+import React from "react";
 import FDSButton from "../FDSButton";
 
 export default (
-  <FDSButton type="basic" size="medium" disabled="false">
+  <FDSButton uxpId="fds-button" type="basic" size="medium" disabled="false">
     Hello World!
   </FDSButton>
 );
