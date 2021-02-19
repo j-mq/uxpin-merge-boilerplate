@@ -28,14 +28,14 @@ button {
   }
 }
 .primary {
-  background: #6187db;
+  background: coral;
   color: white;
 
   &:hover {
     background: #4a7ee8;
   }
   &:active {
-    background: #1646aa;
+    background: coral;
   }
   &:disabled {
     background: #dbe5fa;
@@ -44,16 +44,16 @@ button {
 }
 .outline {
   background: white;
-  color: #6187db;
-  border: 1px solid #6187db;
+  color: coral;
+  border: 1px solid coral;
 
   &:hover {
     background: #f5f5f5;
   }
   &:active {
     background: #f5f5f5;
-    color: #1646aa;
-    border-color: #1646aa;
+    color: coral;
+    border-color: coral;
   }
   &:disabled {
     background: #f5f5f5;
@@ -77,7 +77,7 @@ button {
 }
 .text-button {
   background: none;
-  color: #6187db;
+  color: coral;
   box-shadow: none;
 
   &:hover {
